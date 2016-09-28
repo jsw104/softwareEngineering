@@ -14,6 +14,19 @@ module AbstractDevice
     @connectors[i]
   end 
 
+  def reachable_devices
+    directly_reachable_devices = @connectors.select { |connector| connector.peer && connector.peer.device }
+    directly_reachable_devices + directly_reachable_devices.map { |directly_reachable_device| directly_reachable_device.reachable_devices }
+  end
+
+  def is_reachable (device)
+    @connectors.each do |connector|
+      true if connector.peer.device == device
+      connector.peer.device.is_reachable(device)
+    end
+    false
+  end
+
   def recv(message, connector)
     raise NullPointerException, "", caller if !message || !connector
     raise IllegalArgumentException, "", caller if connector.device.get_device_class != get_device_class

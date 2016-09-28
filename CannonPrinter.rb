@@ -5,12 +5,14 @@ class CannonPrinter
     PRINTER
   end
 
-  def recv (message, connector)
-  	raise NullPointerException, "", caller if !message || !connector
-  	raise IllegalArgumentException, "", caller if connector.device.get_device_class != get_device_class
-  	puts "Cannon Printer has printed the string: " + message.stringMess + self.version.to_s if message.is_a?(StringMessage)
-  	puts "Cannon Printer has printed the binary message: " + (message.value * self.serial_number).to_s if message.is_a?(BinaryMessage)
+  def recv_binary (message, connector)
+    puts "Cannon Printer has printed the binary message: " + (message.value * self.serial_number).to_s
   end
+
+  def recv_string (message, connector)
+    puts "Cannon Printer has printed the string: " + message.stringMess + self.version.to_s
+  end
+
   class CannonPrinterBuilder
   	include AbstractPeripheralBuilder
   	def build

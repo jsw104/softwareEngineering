@@ -14,6 +14,13 @@ module AbstractDevice
     @connectors[i]
   end 
 
+  def recv(message, connector)
+    raise NullPointerException, "", caller if !message || !connector
+    raise IllegalArgumentException, "", caller if connector.device.get_device_class != get_device_class
+    recv_string(message, connector) if message.is_a?(StringMessage)
+    recv_binary(message, connector) if message.is_a?(BinaryMessage)
+  end
+
   private def initialize (builder)
   #super initialize, put these 4 lines in abstract device
     @version = builder.version

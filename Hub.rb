@@ -9,12 +9,13 @@ class Hub
     HUB
   end
 
-  def recv (message, connector)
-  	raise NullPointerException, "", caller if !message || !connector
-  	raise IllegalArgumentException, "", caller if connector.device.get_device_class != get_device_class
-  	puts "recv not yet supported"
+  def recv_binary (message, connector)
+    puts "recv not yet supported"
   end
 
+  def recv_string (message, connector)
+    puts "recv not yet supported"
+  end
   class HubBuilder
   	include AbstractBuilder
     def build

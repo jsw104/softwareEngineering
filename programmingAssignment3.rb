@@ -8,8 +8,12 @@ require_relative 'SisterPrinter'
 require_relative 'CannonPrinter'
 
 #put everything in one module
-#rcv in abstract device and typecheck there
+
 #delegator methods on StringMessage
+
+test = StringMessage.new("testing")
+puts test.length
+
 #product code could be nil
 puts "creating hub builder"
 builder = Hub::HubBuilder.new(1)
